@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tab切换</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app" v-cloak>
+        <tabs v-model='activeKey' @on-click='onclicks'>
+            <pane lable='标签01' name='1'>
+                tab01
+            </pane>
+            <pane lable='标签02' name='2'>
+                tab02
+            </pane>
+            <pane lable='标签03' name='3'>
+                tab03
+            </pane>
+        </tabs>
+    </div>
+<script src="js/vue.js"></script>
+<script src="js/plane.js"></script>
+<script src="js/tabs.js"></script>
+<script>
+    const app = new Vue({
+        el:'#app',
+        data: {
+            activeKey: '1',
+        },
+        methods: {
+            onclicks(val) {
+               console.log(val);
+            }
+        },
+    });
+</script>
+</body>
+</html>
