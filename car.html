@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>购物车</title>
+</head>
+<style>
+    [v-cloak]{
+        display: none;
+    }
+</style>
+<body>
+
+<div class="car" id="app" v-cloak>
+    <div v-if='list.length'>
+    <table>
+        <thead>
+            <tr>
+                <th>全选</th>
+                <th>商品分类</th>
+                <th>商品名称</th>
+                <th>商品单价</th>
+                <th>购买数量</th>
+                <th>合计</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for='(item , index) in list' :key='item.id' >
+                <td><input type="checkbox" name=""/></td>
+                <td>{{item.typesex}} </td>
+                <td>{{item.name}} </td>
+                <td>{{item.price}} </td>
+                <td>
+                    <button @click='btnNumj(index)' :disabled='item.count===1'> - </button>
+                    {{item.count}}
+                    <button @click='item.count++'> + </button>
+                </td>
+                <td>
+                    {{item.price * item.count}}
+                </td>
+                <td><button @click='deletesp(index)'>删除</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <div>总计：{{sumcount}}</div>
+</div>
+<div v-else>
+    您的购物车暂时没有添加宝贝 
+    </div>
+</div>
+
+<script type="" src="js/vue.js"></script>
+<script>
+    var app = new Vue({
+        el:'#app',
+        data: {
+            list: [
+                {id:1,typesex:'dzcp', name:'iphone',price:'1200',count:'2'},
+                {id:2,typesex:'dzcp',name:'vivo',price:'1000',count:'2'},
+                {id:3,typesex:'dzcp',name:'oppo',price:'1000',count:'2'},
+                {id:4,typesex:'dzcp',name:'xiaomi',price:'1000',count:'2'},
+                {id:5,typesex:'dzcp',name:'huawei',price:'1000',count:'2'},
+                {id:6,typesex:'shucai', name:'白菜',price:'1200',count:'2'},
+                {id:7,typesex:'shucai',name:'莲藕',price:'1000',count:'2'},
+                {id:8,typesex:'shucai',name:'小葱',price:'1000',count:'2'},
+                {id:9,typesex:'shucai',name:'土豆',price:'1000',count:'2'},
+                {id:10,typesex:'shucai',name:'西红柿',price:'1000',count:'2'},
+            ],
+        },
+        computed: {
+            sumcount: function(){
+                 let title = 0;
+                 for(let i = 0; i < this.list.length; i++){
+                     let item = this.list[i];
+                     title += item.price * item.count;
+                 }
+                 return title;
+            },
+        },
+        methods: {
+            btnNumj: function(index){
+                if(this.list[index].count ===1){return};
+                this.list[index].count--;
+            },
+            deletesp: function(index){
+                this.list.splice(index,1);
+            },
+        },
+    });
+</script>
+</body>
+</html>

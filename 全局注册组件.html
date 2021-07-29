@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <my-component></my-component>
+        <my-component></my-component>
+        <my-component></my-component>
+        <my-zujian typess='来自父组件父组件的父组件的修改' msg='02'></my-zujian>
+        <input type="text" v-model='perenttext'>
+        <my-input :msg='perenttext'></my-input> -->
+        <input type="text" v-model='kuan'>宽
+        <input type="text" v-model='gao'>高
+
+        <input type="text" v-model='yan'>
+
+        <my-div :width='kuan' :height='gao' :yanse='yan'></my-div>
+    <!-- <table>
+        <tbody is="my-component">
+        </tbody>
+    </table> -->
+</div>
+    <script src="js/vue.js"></script>
+    <script>
+        var data={
+            msg:0
+        }
+        Vue.component('my-component',{
+            template:'<button @click="msg++">{{msg}}</button>' ,
+            data: function (){
+                return {
+                    msg:0
+                };
+            }
+        });
+        Vue.component('my-zujian',{
+            template:'<div>{{typess}}{{msg}}</div>' ,
+            props: ['typess','msg']
+        });
+        Vue.component('my-input',{
+            template:'<div>name is {{msg}}</div>' ,
+            props: ['msg']
+        });
+        Vue.component('my-div',{
+            // props: ['width','height','yanse'],
+            props:{
+                width:String,
+                height:[Number,String],
+                yanse:{
+                    type:String,
+                    required:true
+                }
+            },
+            template:'<div style="background:red;" :style="style">宽{{width}}，高{{height}}</div>',
+            computed: {
+                style: function() {
+                   return {
+                    width:this.width+'px',
+                    height:this.height+'px',
+                    background:'#'+this.yanse
+                   }
+                }
+            },
+        });
+        var app=new Vue({
+            el:'#app',
+            data: {
+                perenttext:'',
+                kuan:'200',
+                gao:'100',
+                yan:''
+            },
+        });
+    </script>
+</body>
+</html>
